@@ -97,11 +97,16 @@ function info_booth.display(category, page, name)
          return text
     end
 
+    local content = info_booth.tables[category].pages[page]
+    if type(content) == "function" then
+        content = content()
+    end
+
     local formspec = "size[12,7]"
         .. "textlist[-0.25,0;4,7;page;" .. table.concat(n, ",") .. ";" .. sel .. "]"
         .. "tablecolumns[text]"
         .. "tableoptions[background=#000000FF;highlight=#000000FF;border=false]"
-        .. "table[4,0;8,7;text;" .. text_for_textlist(info_booth.tables[category].pages[page]) .. "]"
+        .. "table[4,0;8,7;text;" .. text_for_textlist(content) .. "]"
     players[name] = category
     engine.show_formspec(name, "info_booth:display", formspec)
 end
