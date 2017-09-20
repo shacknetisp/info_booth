@@ -99,7 +99,7 @@ function info_booth.display(category, page, name)
 
     local content = info_booth.tables[category].pages[page]
     if type(content) == "function" then
-        content = content()
+        content = content(engine.get_player_by_name(name))
     end
 
     local formspec = "size[12,7]"
